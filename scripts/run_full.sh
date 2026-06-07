@@ -30,6 +30,13 @@ python experiment/run_gpah_paper1_all_experiments.py \
   --rl_jobs 2 \
   --rl_seed_offset 0 \
   --rl_reuse_fixed_policy_dir results/generated/full/policy \
+  --run_buffer_robustness \
+  --buffer_robustness_replications 20 \
+  --buffer_robustness_warmup_steps 1000 \
+  --buffer_robustness_base_eval_steps 3000 \
+  --buffer_robustness_long_eval_steps 30000 \
+  --buffer_robustness_base_cap 2000 \
+  --buffer_robustness_large_cap 10000 \
   --seed 20260527
 
 python experiment/map_gpah_paper1_ablation.py \

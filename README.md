@@ -86,14 +86,13 @@ are not tuned per test instance.
 
 ## Included-result status
 
-`data/raw/final_run/` contains the final policy, sensitivity, and trained-RL
-comparison outputs used for the paper-facing analysis, including replication
-CSV files and RL learning histories.
+`data/raw/final_run/` contains the final policy, sensitivity, trained-RL, and
+buffer-robustness outputs used for the paper-facing analysis, including
+replication CSV files and RL learning histories.
 
 The held-out-topology folder contains a partial checkpoint snapshot rather than
-a complete result table, and the buffer-robustness folder currently contains no
-completed output files. Their executable experiment code is included, but these
-two diagnostics must be run separately before claiming completed results.
+a complete result table. Its executable experiment code is included, but that
+diagnostic must be completed before claiming held-out-topology results.
 
 ## Integrity
 

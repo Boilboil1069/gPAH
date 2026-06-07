@@ -26,7 +26,8 @@ and copied into this standalone repository. Local absolute paths contained in
 historical run manifests are provenance records only; all commands documented
 in this repository use relative paths.
 
-The held-out-topology result snapshot is incomplete, and the buffer-robustness
-snapshot has no completed data files. Their scripts are included to make the
-missing incremental experiments explicit and executable.
-
+The buffer-robustness snapshot is complete and includes replication-level data,
+summaries, and diagnostics for \(\rho\in\{0.90,0.95\}\) under three buffer and
+evaluation-horizon settings. The held-out-topology result snapshot remains
+incomplete; its script is included to make the missing incremental experiment
+explicit and executable.

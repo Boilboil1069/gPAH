@@ -12,6 +12,8 @@
   instance, and training seed.
 - `paper1_ablation_replications.csv`: conditional component-ablation
   replications.
+- `paper1_buffer_robustness_replications.csv`: high-load finite-buffer and
+  long-horizon diagnostic replications.
 
 ## Common columns
 
@@ -27,4 +29,3 @@
 Files ending in `_case_summary.csv`, `_family_summary.csv`, or
 `_paired_*.csv` are derived summaries. Replication files are the primary
 statistical-analysis inputs.
-

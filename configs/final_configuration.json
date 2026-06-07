@@ -73,5 +73,16 @@
     "warmup_steps": 500,
     "evaluation_steps": 3000,
     "seed": 20260508
+  },
+  "buffer_robustness": {
+    "loads": [0.9, 0.95],
+    "scenarios": [
+      {"buffer_cap": 2000, "evaluation_steps": 3000},
+      {"buffer_cap": 10000, "evaluation_steps": 3000},
+      {"buffer_cap": 10000, "evaluation_steps": 30000}
+    ],
+    "replications": 20,
+    "warmup_steps": 1000,
+    "seed": 27260527
   }
 }
