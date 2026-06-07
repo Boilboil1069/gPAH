@@ -32,3 +32,12 @@ python experiment/run_gpah_paper1_all_experiments.py \
   --rl_reuse_fixed_policy_dir results/generated/full/policy \
   --seed 20260527
 
+python experiment/map_gpah_paper1_ablation.py \
+  --output_dir results/generated/full/ablation_r50_conditional \
+  --no_timestamped_output \
+  --families B1_phase,B2_service,B3_scarcity,B4_switch,B5_mixed \
+  --policies gpah_full,no_phase,no_service,no_scarcity,no_switch,no_queue,mean_map \
+  --replications 50 \
+  --warmup_steps 500 \
+  --eval_steps 3000 \
+  --seed 20260508

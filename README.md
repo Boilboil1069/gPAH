@@ -55,7 +55,8 @@ environment steps using 10 independent training seeds and 10 evaluation
 replications. The complete run is computationally expensive.
 
 The command writes to `results/generated/full/`. Fixed-policy results generated
-earlier in the same run are reused during the RL comparison.
+earlier in the same run are reused during the RL comparison. The same entry
+also runs the 50-replication conditional component-ablation experiment.
 
 ## Regenerate figures from included raw data
 
@@ -109,4 +110,3 @@ to verify the committed code, configuration, raw data, and paper artifacts.
 See `CODE_AND_DATA_AVAILABILITY.md` for manuscript-ready wording. Replace the
 repository URL placeholder after uploading this repository to an anonymous
 review service or public archival repository.
-

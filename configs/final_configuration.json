@@ -66,6 +66,12 @@
     "replications": 30,
     "warmup_steps": 500,
     "evaluation_steps": 3000
+  },
+  "conditional_ablation": {
+    "families": ["B1_phase", "B2_service", "B3_scarcity", "B4_switch", "B5_mixed"],
+    "replications": 50,
+    "warmup_steps": 500,
+    "evaluation_steps": 3000,
+    "seed": 20260508
   }
 }
-
