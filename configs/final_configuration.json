@@ -1,0 +1,71 @@
+{
+  "master_seed": 20260527,
+  "families": [
+    "A1_topology",
+    "A2_map_burst",
+    "A3_density",
+    "A4_service",
+    "A5_switch",
+    "A6_scale",
+    "A7_load",
+    "A8_large_scale"
+  ],
+  "structured_policies": [
+    "equal_split",
+    "backpressure",
+    "maxweight_mu",
+    "cmu",
+    "affinity",
+    "rl_queueing",
+    "qah_switch",
+    "gpah_meanmap",
+    "gpah"
+  ],
+  "gpah": {
+    "alpha_Q": 1.0,
+    "alpha_A": 1.6,
+    "alpha_mu": 1.0,
+    "alpha_S": 0.55,
+    "alpha_C": 0.9,
+    "alpha_L": 0.35,
+    "forecast_horizon": 6,
+    "assigned_load_coefficient": 0.25,
+    "instance_wise_normalization": false
+  },
+  "policy_evaluation": {
+    "replications": 50,
+    "warmup_steps": 500,
+    "evaluation_steps": 3000
+  },
+  "rl": {
+    "algorithms": ["dqn", "ppo", "sac"],
+    "budget_preset": "full",
+    "training_steps_per_algorithm_instance_seed": 250000,
+    "training_seeds": 10,
+    "evaluation_replications": 10,
+    "warmup_steps": 500,
+    "evaluation_steps": 3000,
+    "rollout_steps": 256,
+    "gamma": 0.995,
+    "learning_rate": 0.0003,
+    "batch_size": 128,
+    "hidden_units_per_layer": 128,
+    "replay_buffer_size": 50000,
+    "update_after": 500,
+    "update_every": 4,
+    "target_tau": 0.01,
+    "ppo_epochs": 4,
+    "ppo_clip": 0.2,
+    "entropy_coefficient": 0.02,
+    "value_coefficient": 0.5,
+    "sac_alpha": 0.08
+  },
+  "sensitivity": {
+    "parameters": ["alpha_Q", "alpha_A", "alpha_mu", "alpha_S", "alpha_C", "alpha_L"],
+    "multipliers": [0.0, 0.5, 1.0, 1.5, 2.0],
+    "replications": 30,
+    "warmup_steps": 500,
+    "evaluation_steps": 3000
+  }
+}
+

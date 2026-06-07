@@ -1,0 +1,63 @@
+{
+  "output_dir": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615/increment_A8_rl_d30_d40_d75_d100/rl",
+  "algorithms": [
+    "dqn",
+    "ppo",
+    "sac"
+  ],
+  "families": [
+    "A8_large_scale"
+  ],
+  "case_ids": [
+    "d30_K12",
+    "d40_K16",
+    "d75_K30",
+    "d100_K40"
+  ],
+  "replications": 10,
+  "train_seeds": 10,
+  "warmup_steps": 500,
+  "eval_steps": 3000,
+  "train_steps": 250000,
+  "rollout_steps": 256,
+  "seed": 21160527,
+  "device": "mps",
+  "jobs": 1,
+  "reuse_fixed_policy_dir": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615/policy",
+  "train_progress": true,
+  "gamma": 0.995,
+  "lr": 0.0003,
+  "batch_size": 128,
+  "hidden": 128,
+  "buffer_size": 50000,
+  "update_after": 500,
+  "update_every": 4,
+  "target_tau": 0.01,
+  "ppo_epochs": 4,
+  "ppo_clip": 0.2,
+  "entropy_coef": 0.02,
+  "value_coef": 0.5,
+  "alpha": 0.08,
+  "curve_window": 500,
+  "budget_preset": "full",
+  "budget_presets": {
+    "smoke": {
+      "train_steps": 12000,
+      "train_seeds": 1
+    },
+    "review": {
+      "train_steps": 100000,
+      "train_seeds": 5
+    },
+    "full": {
+      "train_steps": 250000,
+      "train_seeds": 10
+    }
+  },
+  "notes": [
+    "Review preset increases DQN/PPO/SAC from the earlier smoke budget of 12k steps and one seed to 100k steps and five independent training seeds.",
+    "Full preset is intended for a camera-ready or appendix-grade robustness run.",
+    "Hyperparameters are fixed across case families unless explicitly overridden on the command line.",
+    "Evaluation uses common evaluation replications across trained agents and fixed structural policies."
+  ]
+}

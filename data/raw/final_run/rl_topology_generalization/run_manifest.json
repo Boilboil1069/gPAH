@@ -1,0 +1,53 @@
+{
+  "output_dir": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615/rl_topology_generalization",
+  "algorithms": [
+    "dqn",
+    "ppo",
+    "sac"
+  ],
+  "families": [
+    "A1_topology_generalization"
+  ],
+  "case_ids": [
+    "bridge_bottleneck",
+    "random_sparse"
+  ],
+  "replications": 10,
+  "train_seeds": 10,
+  "warmup_steps": 500,
+  "eval_steps": 3000,
+  "train_steps": 250000,
+  "rollout_steps": 256,
+  "seed": 26160527,
+  "device": "mps",
+  "jobs": 1,
+  "reuse_fixed_policy_dir": "",
+  "train_progress": true,
+  "gamma": 0.995,
+  "lr": 0.0003,
+  "batch_size": 128,
+  "hidden": 128,
+  "buffer_size": 50000,
+  "update_after": 500,
+  "update_every": 4,
+  "target_tau": 0.01,
+  "ppo_epochs": 4,
+  "ppo_clip": 0.2,
+  "entropy_coef": 0.02,
+  "value_coef": 0.5,
+  "alpha": 0.08,
+  "curve_window": 500,
+  "budget_preset": "full",
+  "train_topologies": [
+    "disjoint",
+    "chain",
+    "ring",
+    "star",
+    "high_overlap"
+  ],
+  "heldout_test_topologies": [
+    "bridge_bottleneck",
+    "random_sparse"
+  ],
+  "protocol": "one shared policy per algorithm and training seed; zero fine-tuning on held-out topologies"
+}

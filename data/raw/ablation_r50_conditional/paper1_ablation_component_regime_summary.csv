@@ -1,0 +1,11 @@
+component,regime,ablated_policy,num_cases,num_replications,mean_paired_objective_gap,mean_paired_queue_gap,interpretation,on_minus_off_objective_gap
+mixed,off,no_queue,1,50,1.560994073,3257.08146,necessary_in_this_regime,-1.3049299259612455
+mixed,on,no_queue,2,100,0.25606414703875463,1801.37405,necessary_in_this_regime,-1.3049299259612455
+phase,off,no_phase,1,50,0.004750639200809323,25.71689999999993,necessary_in_this_regime,-0.0006242946713814609
+phase,on,no_phase,2,100,0.004126344529427862,12.297620000000041,necessary_in_this_regime,-0.0006242946713814609
+scarcity,off,no_scarcity,1,50,0.0007859561868261555,-25.01961333333333,necessary_in_this_regime,0.033096905257020866
+scarcity,on,no_scarcity,2,100,0.03388286144384702,-8.143130000000012,necessary_in_this_regime,0.033096905257020866
+service,off,no_service,1,50,-0.10966116663321245,-21.958086666666663,not_necessary_or_overweighted,0.1389350469107075
+service,on,no_service,2,100,0.029273880277495043,515.5795866666665,necessary_in_this_regime,0.1389350469107075
+switch,off,no_switch,1,50,-0.0021686303333333335,-43.37260666666667,not_necessary_or_overweighted,0.3182627930319308
+switch,on,no_switch,2,100,0.31609416269859747,1756.2267366666665,necessary_in_this_regime,0.3182627930319308
