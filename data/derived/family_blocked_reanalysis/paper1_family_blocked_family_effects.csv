@@ -1,0 +1,33 @@
+family,family_label,comparator,comparator_label,cases,case_wins,objective_improvement_pct,queue_improvement_pct
+A1_topology,A1 topology,maxweight_mu,MaxWeight-mu,7,6,11.293759146351665,-0.5269251509907449
+A1_topology,A1 topology,affinity,GB-PANDAS-style,7,4,8.046452924585363,-11.976868122635077
+A1_topology,A1 topology,qah_switch,QAH+Switch,7,7,21.644090084424146,24.9029158613157
+A1_topology,A1 topology,gpah_meanmap,gPAH-StationaryMean,7,7,5.973527101943695,0.8776883981858081
+A2_map_burst,A2 MMPP regime,maxweight_mu,MaxWeight-mu,9,9,14.709743182990046,3.1863170362864484
+A2_map_burst,A2 MMPP regime,affinity,GB-PANDAS-style,9,8,13.367465983444824,-0.5156840603892562
+A2_map_burst,A2 MMPP regime,qah_switch,QAH+Switch,9,7,8.738428238835034,4.000700880460751
+A2_map_burst,A2 MMPP regime,gpah_meanmap,gPAH-StationaryMean,9,8,7.002440890070939,-3.0420367540424795
+A3_density,A3 compatibility density,maxweight_mu,MaxWeight-mu,3,2,4.737598819800545,-4.024169467136246
+A3_density,A3 compatibility density,affinity,GB-PANDAS-style,3,2,0.5214563463672977,-18.40964873005187
+A3_density,A3 compatibility density,qah_switch,QAH+Switch,3,3,37.00201650209049,49.433352905910475
+A3_density,A3 compatibility density,gpah_meanmap,gPAH-StationaryMean,3,3,3.4293416811309814,3.80711207099187
+A4_service,A4 service heterogeneity,maxweight_mu,MaxWeight-mu,3,3,22.274329574489496,18.59420790616926
+A4_service,A4 service heterogeneity,affinity,GB-PANDAS-style,3,3,21.37401013877881,12.533979313516241
+A4_service,A4 service heterogeneity,qah_switch,QAH+Switch,3,2,10.316205046736751,-12.133801551722918
+A4_service,A4 service heterogeneity,gpah_meanmap,gPAH-StationaryMean,3,3,10.324814697399953,-3.4108018417432184
+A5_switch,A5 switching friction,maxweight_mu,MaxWeight-mu,4,4,17.723632784285076,7.739935642729125
+A5_switch,A5 switching friction,affinity,GB-PANDAS-style,4,4,17.30641042450163,5.417602572187674
+A5_switch,A5 switching friction,qah_switch,QAH+Switch,4,1,-9.582778782150102,3.7073628153155345
+A5_switch,A5 switching friction,gpah_meanmap,gPAH-StationaryMean,4,3,1.7360594202140713,1.2394575215125263
+A6_scale,A6 moderate scale,maxweight_mu,MaxWeight-mu,6,5,9.929245835786402,0.14343137563106637
+A6_scale,A6 moderate scale,affinity,GB-PANDAS-style,6,5,7.417094582170807,-2.5018627025834115
+A6_scale,A6 moderate scale,qah_switch,QAH+Switch,6,4,15.022721913502862,24.582371550949585
+A6_scale,A6 moderate scale,gpah_meanmap,gPAH-StationaryMean,6,5,2.429403037231332,0.21186582148327968
+A7_load,A7 offered load,maxweight_mu,MaxWeight-mu,4,4,20.032519329257774,-0.8545790251572623
+A7_load,A7 offered load,affinity,GB-PANDAS-style,4,4,21.204623295612258,-6.5560040767247765
+A7_load,A7 offered load,qah_switch,QAH+Switch,4,4,3.9567332813117626,-3.022421040335918
+A7_load,A7 offered load,gpah_meanmap,gPAH-StationaryMean,4,4,7.423906520826981,-4.373349509648142
+A8_large_scale,A8 large scale,maxweight_mu,MaxWeight-mu,6,3,0.20579377265147705,-23.476204603641122
+A8_large_scale,A8 large scale,affinity,GB-PANDAS-style,6,0,-3.007713809765352,-73.75914135259983
+A8_large_scale,A8 large scale,qah_switch,QAH+Switch,6,6,28.648258222395587,80.10722909050757
+A8_large_scale,A8 large scale,gpah_meanmap,gPAH-StationaryMean,6,6,1.1793458418583171,-1.8151365181217363

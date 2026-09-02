@@ -17,11 +17,11 @@ RL_LABELS = {
     "cmu": "c-mu",
     "dqn": "DQN-Candidate",
     "gpah": "gPAH",
-    "gpah_meanmap": "gPAH-MeanMAP",
+    "gpah_meanmap": "gPAH-StationaryMean",
     "maxweight_mu": "MaxWeight-mu",
     "ppo": "PPO-Factorized",
     "qah_switch": "QAH+Switch",
-    "sac": "Discrete-SAC",
+    "sac": "Discrete-SAC-Factorized",
 }
 
 RL_COLORS = {

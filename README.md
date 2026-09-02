@@ -14,9 +14,14 @@ the parent development workspace are required.
 - `configs/`: frozen paper-facing configuration and seed documentation.
 - `data/raw/final_run/`: raw and summarized outputs from the final main run.
 - `data/raw/ablation_r50_conditional/`: conditional-ablation raw results.
+- `data/derived/family_blocked_reanalysis/`: versioned family-blocked revision tables and manifest.
 - `paper_artifacts/`: figures and tables used by the manuscript.
 - `scripts/`: one-command smoke test, full run, and figure regeneration.
 - `docs/`: data dictionary, reproducibility notes, and availability statement.
+
+The complete paper-facing parameter tables are maintained in
+[`docs/REPRODUCIBILITY_PARAMETERS.md`](docs/REPRODUCIBILITY_PARAMETERS.md)
+rather than duplicated in the manuscript appendix.
 
 ## Environment
 
@@ -66,6 +71,42 @@ bash scripts/reproduce_figures.sh
 
 Generated figures are written under `results/replotted/`; the included raw data
 are not modified.
+
+## Supplemental revision experiments
+
+The completed family-blocked analysis is a deterministic reanalysis of the
+included replication data and runs in under a second on a typical laptop:
+
+```bash
+python experiment/reanalyze_gpah_paper1_family_blocked.py
+```
+
+Five independent entry points implement the reviewer-requested controlled
+phase-observation robustness study, online hidden-phase Bayesian-filter
+validation, uncapped high-load diagnostic, wall-clock timing at `d=100, K=40`,
+and validation-based RL hyperparameter/convergence study. The hidden-phase
+experiment also has a dedicated paper-facing entry point:
+
+```bash
+PYTHON_BIN=python bash scripts/run_phase_filter_validation.sh
+```
+
+The controlled phase-observation experiment can be rerun independently with:
+
+```bash
+PYTHON_BIN=python bash scripts/run_phase_observation_robustness.sh
+```
+
+```bash
+bash scripts/run_revision_experiments_smoke.sh
+bash scripts/run_revision_experiments.sh
+```
+
+The first command is a software check; the second uses the paper-facing
+budgets. See `docs/REVISION_EXPERIMENTS.md` for the protocol and individual
+entry points. The fifth, RL validation stage displays training progress in
+the active terminal. Set `REVISION_SKIP_COMPLETED=1` to resume an interrupted
+full run by skipping stages with a completed `run_manifest.json`.
 
 ## Frozen parameters and seeds
 

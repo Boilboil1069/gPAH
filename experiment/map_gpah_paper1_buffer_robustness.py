@@ -107,12 +107,12 @@ def plot_metric(rows: List[Dict[str, object]], metric: str, ylabel: str, output_
 def plot_diagnostic_heatmap(rows: List[Dict[str, object]], output_path: str) -> None:
     policies = [p for p in BUFFER_POLICY_ORDER if any(str(r["policy"]) == p for r in rows)]
     conditions = [
-        (0.90, "B2000_T3000", "$\\rho=.90$\n$B=2k,T=3k$"),
-        (0.90, "B10000_T3000", "$\\rho=.90$\n$B=10k,T=3k$"),
-        (0.90, "B10000_T30000", "$\\rho=.90$\n$B=10k,T=30k$"),
-        (0.95, "B2000_T3000", "$\\rho=.95$\n$B=2k,T=3k$"),
-        (0.95, "B10000_T3000", "$\\rho=.95$\n$B=10k,T=3k$"),
-        (0.95, "B10000_T30000", "$\\rho=.95$\n$B=10k,T=30k$"),
+        (0.90, "B2000_T3000", "2/3"),
+        (0.90, "B10000_T3000", "10/3"),
+        (0.90, "B10000_T30000", "10/30"),
+        (0.95, "B2000_T3000", "2/3"),
+        (0.95, "B10000_T3000", "10/3"),
+        (0.95, "B10000_T30000", "10/30"),
     ]
     lookup = {(float(r["load"]), str(r["scenario"]), str(r["policy"])): r for r in rows}
     metrics = [
@@ -128,7 +128,7 @@ def plot_diagnostic_heatmap(rows: List[Dict[str, object]], output_path: str) -> 
         "buffer_trend",
         ["#edf4f8", "#95c6c8", "#3f8e9b", "#31546f"],
     )
-    fig, axes = plt.subplots(1, 3, figsize=(16.5, 6.0), constrained_layout=True)
+    fig, axes = plt.subplots(1, 3, figsize=(16.5, 6.5), constrained_layout=True)
     for panel, (ax, (metric, label, multiplier, vmax, cmap_kind)) in enumerate(zip(axes, metrics)):
         mat = np.full((len(policies), len(conditions)), np.nan)
         for i, policy in enumerate(policies):
@@ -144,10 +144,15 @@ def plot_diagnostic_heatmap(rows: List[Dict[str, object]], output_path: str) -> 
             norm=PowerNorm(gamma=0.55, vmin=0.0, vmax=vmax),
         )
         ax.set_xticks(np.arange(len(conditions)))
-        ax.set_xticklabels([c[2] for c in conditions], fontsize=8)
+        ax.set_xticklabels([c[2] for c in conditions], fontsize=8.5)
         ax.set_yticks(np.arange(len(policies)))
         ax.set_yticklabels([POLICY_LABELS.get(p, p) for p in policies] if panel == 0 else [])
-        ax.set_xlabel(label, labelpad=8)
+        ax.set_xlabel(label + "\n" + r"$B/T$ (thousands)", labelpad=9, linespacing=1.2)
+        ax.text(1.0, 1.025, r"$\rho=.90$", transform=ax.get_xaxis_transform(),
+                ha="center", va="bottom", fontsize=9.2, fontweight="semibold", clip_on=False)
+        ax.text(4.0, 1.025, r"$\rho=.95$", transform=ax.get_xaxis_transform(),
+                ha="center", va="bottom", fontsize=9.2, fontweight="semibold", clip_on=False)
+        ax.axvline(2.5, color="#ffffff", linewidth=2.2)
         ax.set_xticks(np.arange(len(conditions) + 1) - 0.5, minor=True)
         ax.set_yticks(np.arange(len(policies) + 1) - 0.5, minor=True)
         ax.grid(which="minor", color="#ffffff", linewidth=1.1)

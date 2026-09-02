@@ -20,10 +20,10 @@ POLICY_LABELS: Dict[str, str] = {
     "maxweight_mu": "MaxWeight-mu",
     "cmu": "c-mu",
     "affinity": "GB-PANDAS-style",
-    "rl_queueing": "RL-Queueing-Surrogate",
+    "rl_queueing": "Queueing-Surrogate",
     "sah": "SAH",
     "qah_switch": "QAH+Switch",
-    "gpah_meanmap": "gPAH-MeanMAP",
+    "gpah_meanmap": "gPAH-StationaryMean",
     "gpah": "gPAH",
     "gpah_full": "gPAH-Full",
     "no_phase": "Abl-NoPhase",
@@ -31,10 +31,10 @@ POLICY_LABELS: Dict[str, str] = {
     "no_scarcity": "Abl-NoScarcity",
     "no_switch": "Abl-NoSwitch",
     "no_queue": "Abl-NoQueue",
-    "mean_map": "Abl-MeanMAP",
+    "mean_map": "Abl-StationaryMean",
     "dqn": "DQN-Candidate",
     "ppo": "PPO-Factorized",
-    "sac": "Discrete-SAC",
+    "sac": "Discrete-SAC-Factorized",
 }
 
 PAPER_COLORS: Dict[str, str] = {
@@ -110,7 +110,9 @@ class Problem:
     arrival_mean: np.ndarray
     switch_cost: np.ndarray
     switch_lag: np.ndarray
-    buffer_cap: int = 2000
+    # ``None`` is reserved for the uncapped high-load diagnostic. All main
+    # paper experiments retain the finite default B=2000.
+    buffer_cap: Optional[int] = 2000
 
 
 @dataclass
@@ -187,6 +189,9 @@ class SparseMapPhEnv:
         self.rng = np.random.default_rng(seed)
         self.dt = float(dt)
         self.state: Optional[State] = None
+        # Per-queue arrivals are observable after each interval and support
+        # hidden-phase filtering without exposing the simulator's true phase.
+        self.last_arrivals_by_queue = np.zeros(problem.d, dtype=int)
 
     def reset(self) -> State:
         p = self.problem
@@ -196,6 +201,7 @@ class SparseMapPhEnv:
             assigned=np.full(p.K, -1, dtype=int),
             cooldown=np.zeros(p.K, dtype=int),
         )
+        self.last_arrivals_by_queue = np.zeros(p.d, dtype=int)
         return self.copy_state()
 
     def copy_state(self) -> State:
@@ -288,12 +294,21 @@ class SparseMapPhEnv:
 
         rates = self.current_arrival_rates()
         arrivals = self.rng.poisson(np.maximum(0.0, rates * self.dt)).astype(int)
+        self.last_arrivals_by_queue = arrivals.copy()
         self._advance_map_phases()
 
         served = np.minimum(prev_q, service)
         uncapped_q = prev_q - served + arrivals
-        dropped = np.maximum(0, uncapped_q - p.buffer_cap)
-        s.q = np.clip(uncapped_q, 0, p.buffer_cap).astype(int)
+        if p.buffer_cap is None:
+            dropped = np.zeros_like(uncapped_q)
+            s.q = np.maximum(0, uncapped_q).astype(int)
+            overflow = 0.0
+            cap_queue_fraction = 0.0
+        else:
+            dropped = np.maximum(0, uncapped_q - p.buffer_cap)
+            s.q = np.clip(uncapped_q, 0, p.buffer_cap).astype(int)
+            overflow = float(np.any(s.q >= p.buffer_cap))
+            cap_queue_fraction = float(np.mean(s.q >= p.buffer_cap))
         in_service = np.zeros(p.d, dtype=float)
         for k in range(p.K):
             i = int(s.assigned[k])
@@ -309,8 +324,8 @@ class SparseMapPhEnv:
             "admitted_arrivals": float(arrivals.sum() - dropped.sum()),
             "dropped_arrivals": float(dropped.sum()),
             "served": float(served.sum()),
-            "overflow": float(np.any(s.q >= p.buffer_cap)),
-            "cap_queue_fraction": float(np.mean(s.q >= p.buffer_cap)),
+            "overflow": overflow,
+            "cap_queue_fraction": cap_queue_fraction,
         }
 
 

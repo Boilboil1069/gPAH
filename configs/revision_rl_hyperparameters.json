@@ -1,0 +1,23 @@
+{
+  "dqn": [
+    {"candidate_id": "default", "lr": 0.0003, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.01},
+    {"candidate_id": "lower_lr", "lr": 0.0001, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.01},
+    {"candidate_id": "higher_lr", "lr": 0.001, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.01},
+    {"candidate_id": "lower_gamma", "lr": 0.0003, "gamma": 0.99, "batch_size": 128, "hidden": 128, "target_tau": 0.01},
+    {"candidate_id": "slower_target", "lr": 0.0003, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.005}
+  ],
+  "ppo": [
+    {"candidate_id": "default", "lr": 0.0003, "gamma": 0.995, "hidden": 128, "ppo_clip": 0.2, "entropy_coef": 0.02},
+    {"candidate_id": "lower_lr", "lr": 0.0001, "gamma": 0.995, "hidden": 128, "ppo_clip": 0.2, "entropy_coef": 0.02},
+    {"candidate_id": "higher_lr", "lr": 0.001, "gamma": 0.995, "hidden": 128, "ppo_clip": 0.2, "entropy_coef": 0.02},
+    {"candidate_id": "lower_entropy", "lr": 0.0003, "gamma": 0.995, "hidden": 128, "ppo_clip": 0.2, "entropy_coef": 0.005},
+    {"candidate_id": "higher_entropy", "lr": 0.0003, "gamma": 0.995, "hidden": 128, "ppo_clip": 0.2, "entropy_coef": 0.05}
+  ],
+  "sac": [
+    {"candidate_id": "default", "lr": 0.0003, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.01, "alpha": 0.08},
+    {"candidate_id": "lower_lr", "lr": 0.0001, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.01, "alpha": 0.08},
+    {"candidate_id": "higher_lr", "lr": 0.001, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.01, "alpha": 0.08},
+    {"candidate_id": "lower_temperature", "lr": 0.0003, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.01, "alpha": 0.04},
+    {"candidate_id": "higher_temperature", "lr": 0.0003, "gamma": 0.995, "batch_size": 128, "hidden": 128, "target_tau": 0.01, "alpha": 0.16}
+  ]
+}

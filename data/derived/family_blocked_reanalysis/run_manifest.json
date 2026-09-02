@@ -1,0 +1,24 @@
+{
+  "analysis": "family-blocked reanalysis of completed replications",
+  "input": "data/raw/final_run/policy/paper1_policy_replications.csv",
+  "input_sha256": "8c4d60cd6222b393c8dbd2f5850b6b19994633f19400adb5467866badece3c8c",
+  "target_policy": "gpah",
+  "comparators": [
+    "maxweight_mu",
+    "affinity",
+    "qah_switch",
+    "gpah_meanmap"
+  ],
+  "expected_replications_per_case_policy": 50,
+  "hierarchy": [
+    "verify paired replication IDs within each case",
+    "average replications to one mean per case and policy",
+    "compute gPAH relative improvement for each case",
+    "average case effects equally within each family",
+    "average the eight family effects with equal family weight"
+  ],
+  "primary_metric": "standardized objective",
+  "secondary_metric": "mean total queue length",
+  "family_count": 8,
+  "case_count": 42
+}

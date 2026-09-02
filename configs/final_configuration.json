@@ -84,5 +84,48 @@
     "replications": 20,
     "warmup_steps": 1000,
     "seed": 27260527
+  },
+  "revision_phase_observation": {
+    "regimes": ["oracle", "posterior_0.10", "posterior_0.25", "posterior_0.50", "delay_1", "delay_3", "stationary"],
+    "replications": 30,
+    "warmup_steps": 500,
+    "evaluation_steps": 3000,
+    "seed": 30260527
+  },
+  "revision_phase_filter_validation": {
+    "regimes": ["oracle", "bayes_known", "bayes_estimated", "stationary"],
+    "case_ids": ["low_contrast", "fast_mixing", "high_burst", "predictive_burst", "multi_state_burst", "alternating_hotspots"],
+    "replications": 30,
+    "warmup_steps": 500,
+    "evaluation_steps": 3000,
+    "calibration_steps": 10000,
+    "em_iterations": 20,
+    "seed": 34260527
+  },
+  "revision_infinite_buffer": {
+    "loads": [0.9, 0.95],
+    "buffer_cap": null,
+    "replications": 20,
+    "warmup_steps": 1000,
+    "evaluation_steps": 100000,
+    "trace_block_steps": 1000,
+    "seed": 31260527
+  },
+  "revision_runtime": {
+    "sizes": [[20, 10], [50, 20], [100, 40]],
+    "replications": 20,
+    "warmup_decisions": 200,
+    "measured_decisions": 2000,
+    "seed": 32260527
+  },
+  "revision_rl_hyperparameter_validation": {
+    "candidate_config": "configs/revision_rl_hyperparameters.json",
+    "search_training_steps": 100000,
+    "final_training_steps": 250000,
+    "search_training_seeds": 3,
+    "final_training_seeds": 5,
+    "validation_replications": 3,
+    "test_replications": 10,
+    "seed": 33260527
   }
 }
