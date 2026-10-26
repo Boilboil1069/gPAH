@@ -1,7 +1,7 @@
 {
-  "run_root": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615",
-  "policy_dir": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615/policy",
-  "rl_dir": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615/rl",
+  "run_root": "data/raw/final_run",
+  "policy_dir": "data/raw/final_run/policy",
+  "rl_dir": "data/raw/final_run/rl",
   "seed": 20260527,
   "skip_policy": true,
   "skip_rl": true,

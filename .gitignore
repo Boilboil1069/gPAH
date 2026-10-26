@@ -3,6 +3,5 @@ __pycache__/
 .DS_Store
 ._*
 .venv/
-results/generated/
-results/replotted/
+results/
 aux/

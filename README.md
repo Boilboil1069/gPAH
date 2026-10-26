@@ -1,152 +1,120 @@
 # gPAH Computational Reproducibility Repository
 
-This repository contains the code, fixed configurations, random-seed rules,
-raw numerical results, and paper artifacts for the computational study of the
-Generalized Phase-Aware Heuristic (gPAH).
+This repository is the supplementary computational reproducibility package for
+the Generalized Phase-Aware Heuristic (gPAH) study. The frozen results and 18
+numbered manuscript figure assets correspond to the final revised manuscript.
+It includes the simulation and policy implementations, experiment configurations,
+seed rules, replication-level outputs, RL training histories, and scripts for
+checking, reanalyzing, plotting, and rerunning the experiments.
 
-The repository is self-contained for the Paper 1 experiments. No files from
-the parent development workspace are required.
+Download the repository using **Code → Download ZIP**, then extract it before
+running the commands below. A Git clone is also supported. No files from a
+separate development workspace are required. Record the Git commit identifier
+when citing or comparing this package; no archival DOI is claimed here.
 
-## Repository layout
+## Start here
 
-- `experiment/`: simulation model, structured policies, RL baselines,
-  sensitivity analysis, robustness diagnostics, and plotting code.
-- `configs/`: frozen paper-facing configuration and seed documentation.
-- `data/raw/final_run/`: raw and summarized outputs from the final main run.
-- `data/raw/ablation_r50_conditional/`: conditional-ablation raw results.
-- `data/derived/family_blocked_reanalysis/`: versioned family-blocked revision tables and manifest.
-- `paper_artifacts/`: figures and tables used by the manuscript.
-- `scripts/`: one-command smoke test, full run, and figure regeneration.
-- `docs/`: data dictionary, reproducibility notes, and availability statement.
+From the extracted repository root, verify the included files:
 
-The complete paper-facing parameter tables are maintained in
-[`docs/REPRODUCIBILITY_PARAMETERS.md`](docs/REPRODUCIBILITY_PARAMETERS.md)
-rather than duplicated in the manuscript appendix.
+```bash
+python scripts/verify_repository.py
+```
 
-## Environment
+The unified entry point provides the same verification:
 
-The reported run used Python 3.13 on macOS with Apple MPS for RL training.
-Create the environment with:
+```bash
+bash scripts/reproduce.sh verify
+```
+
+Verification checks the packaged files and checksums. It does not rerun an
+experiment or establish statistical reproducibility.
+
+For analysis and simulation, create the pinned environment:
 
 ```bash
 conda env create -f environment.yml
 conda activate gpah-reproduction
 ```
 
-CPU execution is supported and is the most portable option. To use Apple MPS,
-change `--rl_device cpu` to `--rl_device mps` in `scripts/run_full.sh`.
+The reported environment used Python 3.13 on macOS. The main and
+held-out-topology RL runs used Apple MPS; the separate revision RL
+hyperparameter-validation study used CPU, as recorded in its manifest.
+CPU is the portable default for new runs. Set `PYTHON_BIN` to select a Python executable;
+set `RL_DEVICE=mps` or `RL_DEVICE=cuda` for full training when that device is
+available in PyTorch.
 
-## Quick verification
+## Choose a task
 
-The smoke test checks all experiment entry points with a deliberately small
-budget:
+| Purpose | Command | Default output |
+| --- | --- | --- |
+| Check packaged files and SHA-256 checksums | `bash scripts/reproduce.sh verify` | Verification report in the terminal |
+| Recompute the family-blocked tables from frozen replications | `bash scripts/reproduce.sh reanalyze` | `results/reanalysis/family_blocked/` |
+| Regenerate manuscript figures from included numerical results | `bash scripts/reproduce.sh figures` | `results/replotted/` |
+| Exercise main and revision entry points with small budgets | `bash scripts/reproduce.sh smoke` | `results/generated/smoke/` |
+| Rerun the full main, diagnostic, ablation, and revision protocols | `bash scripts/reproduce.sh full` | `results/generated/full/` |
 
-```bash
-bash scripts/run_smoke.sh
-```
-
-This is a software check only and must not be used to reproduce paper results.
-
-## Full reproduction
-
-Run the complete paper-facing experiment suite with:
-
-```bash
-bash scripts/run_full.sh
-```
-
-The full RL configuration trains DQN, PPO, and discrete SAC for 250,000
-environment steps using 10 independent training seeds and 10 evaluation
-replications. The complete run is computationally expensive.
-
-The command writes to `results/generated/full/`. Fixed-policy results generated
-earlier in the same run are reused during the RL comparison. The same entry
-also runs the 50-replication conditional component-ablation experiment.
-
-## Regenerate figures from included raw data
+An optional output directory follows `reanalyze`, `figures`, `smoke`, or `full`.
+Relative output paths are interpreted from the repository root; output paths
+inside the repository must be under `results/`. Existing generated outputs may
+be replaced when rerunning the same command. The script can also be invoked by its path from another working directory. For example:
 
 ```bash
-bash scripts/reproduce_figures.sh
+PYTHON_BIN=python bash scripts/reproduce.sh reanalyze results/reanalysis/check
 ```
 
-Generated figures are written under `results/replotted/`; the included raw data
-are not modified.
+Reanalysis and plotting use existing results; the smoke command is only a
+software check. A full run performs new simulation and training and is
+computationally expensive: the main RL protocol alone uses 250,000 environment
+steps, 10 training seeds per algorithm and instance, and 10 independent
+evaluation replications per trained agent. Numerical agreement across hardware
+is statistical, not guaranteed bitwise equality. All generated outputs are
+kept separate from the frozen `data/` and `paper_artifacts/` files.
 
-## Supplemental revision experiments
+The individual scripts remain available, including `scripts/run_full.sh`,
+`scripts/run_incremental_diagnostics.sh`, and
+`scripts/run_revision_experiments.sh`. The unified `full` command combines the
+paper-facing protocols; the individual main-run script does not run all five
+revision experiments. See [revision protocols](docs/REVISION_EXPERIMENTS.md)
+for the scope and standalone commands.
 
-The completed family-blocked analysis is a deterministic reanalysis of the
-included replication data and runs in under a second on a typical laptop:
+## Included results
 
-```bash
-python experiment/reanalyze_gpah_paper1_family_blocked.py
-```
+| Material | Location |
+| --- | --- |
+| Main structured-policy, sensitivity, RL, and finite-buffer outputs | `data/raw/final_run/` |
+| Complete held-out-topology transfer outputs, four CSVs, manifest, and 30 checkpoints | `data/raw/final_run/rl_topology_generalization/` |
+| Conditional component-ablation replications and summaries | `data/raw/ablation_r50_conditional/` |
+| Controlled phase-observation results | `data/raw/revision_experiments/phase_observation/` |
+| Online hidden-phase filtering results | `data/raw/revision_experiments/phase_filter/` |
+| Uncapped high-load diagnostic results | `data/raw/revision_experiments/infinite_buffer/` |
+| Policy-action runtime results | `data/raw/revision_experiments/runtime/` |
+| RL validation, selected hyperparameters, test outputs, and convergence histories | `data/raw/revision_experiments/rl_hyperparameters/` |
+| Frozen family-blocked reanalysis tables and input manifest | `data/derived/family_blocked_reanalysis/` |
+| Final manuscript figures (`fig1.pdf`–`fig17.pdf`, with `fig13a.pdf` and `fig13b.pdf`) | `paper_artifacts/figs/` |
+| Additional analysis tables | `paper_artifacts/tables/` |
 
-Five independent entry points implement the reviewer-requested controlled
-phase-observation robustness study, online hidden-phase Bayesian-filter
-validation, uncapped high-load diagnostic, wall-clock timing at `d=100, K=40`,
-and validation-based RL hyperparameter/convergence study. The hidden-phase
-experiment also has a dedicated paper-facing entry point:
+This package synchronization adds the completed results and final figure assets;
+it is not a new experimental campaign. Scientific values in the frozen CSVs
+are retained. Historical machine-specific manifest paths have been made
+repository-relative. Old raw policy identifiers are preserved for compatibility;
+use the [policy-name mapping](docs/POLICY_NAMING.md) for current display names.
 
-```bash
-PYTHON_BIN=python bash scripts/run_phase_filter_validation.sh
-```
+## Parameters, provenance, and interpretation
 
-The controlled phase-observation experiment can be rerun independently with:
+- [Reproducibility parameters](docs/REPRODUCIBILITY_PARAMETERS.md) and
+  [machine-readable configuration](configs/final_configuration.json).
+- [Random seeds](configs/seeds.md), [data dictionary](docs/DATA_DICTIONARY.md),
+  and [reproducibility notes](docs/REPRODUCIBILITY_NOTES.md).
+- [Revision experiments](docs/REVISION_EXPERIMENTS.md) and
+  [code and data availability](CODE_AND_DATA_AVAILABILITY.md).
 
-```bash
-PYTHON_BIN=python bash scripts/run_phase_observation_robustness.sh
-```
+The final main-comparison weights are
+`alpha_Q=1.00, alpha_A=1.60, alpha_mu=1.00, alpha_S=0.55, alpha_C=0.90,
+alpha_L=0.35`, with forecast horizon `H=6` and assigned-load coefficient `0.25`.
+Inputs retain their operational units. Weights are shared across scenario
+families and are not tuned per test instance.
 
-```bash
-bash scripts/run_revision_experiments_smoke.sh
-bash scripts/run_revision_experiments.sh
-```
-
-The first command is a software check; the second uses the paper-facing
-budgets. See `docs/REVISION_EXPERIMENTS.md` for the protocol and individual
-entry points. The fifth, RL validation stage displays training progress in
-the active terminal. Set `REVISION_SKIP_COMPLETED=1` to resume an interrupted
-full run by skipping stages with a completed `run_manifest.json`.
-
-## Frozen parameters and seeds
-
-The final gPAH weights are:
-
-```text
-alpha_Q=1.00, alpha_A=1.60, alpha_mu=1.00,
-alpha_S=0.55, alpha_C=0.90, alpha_L=0.35
-```
-
-The forecast horizon is `H=6`, and the within-step assigned-load coefficient is
-`0.25`. Inputs retain their operational units; no instance-wise min-max,
-z-score, or test-result-based normalization is applied.
-
-The master seed and all deterministic seed offsets are documented in
-`configs/seeds.md`. Hyperparameters are shared across scenario families and
-are not tuned per test instance.
-
-## Included-result status
-
-`data/raw/final_run/` contains the final policy, sensitivity, trained-RL, and
-buffer-robustness outputs used for the paper-facing analysis, including
-replication CSV files and RL learning histories.
-
-The held-out-topology folder contains a partial checkpoint snapshot rather than
-a complete result table. Its executable experiment code is included, but that
-diagnostic must be completed before claiming held-out-topology results.
-
-## Integrity
-
-Run:
-
-```bash
-shasum -a 256 -c CHECKSUMS.sha256
-```
-
-to verify the committed code, configuration, raw data, and paper artifacts.
-
-## Code and data availability
-
-See `CODE_AND_DATA_AVAILABILITY.md` for manuscript-ready wording. Replace the
-repository URL placeholder after uploading this repository to an anonymous
-review service or public archival repository.
+The uncapped experiment is a congestion diagnostic, not a stability proof.
+Topology transfer is tested on two fixed held-out graphs without fine-tuning;
+it does not establish generalization over arbitrary graphs. The RL comparisons
+are limited to the released architectures, action spaces, seeds, and budgets.

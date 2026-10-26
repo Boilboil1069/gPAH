@@ -1,0 +1,61 @@
+{
+  "experiment": "phase_observation_robustness",
+  "case_ids": [
+    "low_contrast",
+    "fast_mixing",
+    "high_burst",
+    "predictive_burst",
+    "multi_state_burst",
+    "alternating_hotspots"
+  ],
+  "regimes": [
+    {
+      "name": "oracle",
+      "kind": "oracle",
+      "contamination": 0.0,
+      "delay": 0
+    },
+    {
+      "name": "posterior_0.10",
+      "kind": "posterior",
+      "contamination": 0.1,
+      "delay": 0
+    },
+    {
+      "name": "posterior_0.25",
+      "kind": "posterior",
+      "contamination": 0.25,
+      "delay": 0
+    },
+    {
+      "name": "posterior_0.50",
+      "kind": "posterior",
+      "contamination": 0.5,
+      "delay": 0
+    },
+    {
+      "name": "delay_1",
+      "kind": "delay",
+      "contamination": 0.0,
+      "delay": 1
+    },
+    {
+      "name": "delay_3",
+      "kind": "delay",
+      "contamination": 0.0,
+      "delay": 3
+    },
+    {
+      "name": "stationary",
+      "kind": "stationary",
+      "contamination": 0.0,
+      "delay": 0
+    }
+  ],
+  "replications": 30,
+  "warmup_steps": 500,
+  "eval_steps": 3000,
+  "seed": 30260527,
+  "paired_design": "identical initial state, arrival stream, and phase stream across observation regimes",
+  "random_stream_isolation": "arrival and phase streams are independent of policy-dependent service draws"
+}

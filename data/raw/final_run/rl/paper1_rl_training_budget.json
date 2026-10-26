@@ -1,5 +1,5 @@
 {
-  "output_dir": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615/rl",
+  "output_dir": "data/raw/final_run/rl",
   "algorithms": [
     "dqn",
     "ppo",
@@ -25,7 +25,7 @@
   "seed": 20260527,
   "device": "cpu",
   "jobs": 1,
-  "reuse_fixed_policy_dir": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615/policy",
+  "reuse_fixed_policy_dir": "data/raw/final_run/policy",
   "train_progress": true,
   "gamma": 0.995,
   "lr": 0.0003,

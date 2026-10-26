@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$ROOT"
-
+source "$(dirname "${BASH_SOURCE[0]}")/_common.sh"
 PYTHON_BIN="${PYTHON_BIN:-python}"
 RL_DEVICE="${RL_DEVICE:-cpu}"
-RUN_ROOT="${1:-results/generated/revision_experiments}"
+RUN_ROOT="$(gpah_output_dir "${1:-results/generated/revision_experiments}")"
 REVISION_SKIP_COMPLETED="${REVISION_SKIP_COMPLETED:-0}"
 cleanup_metadata() {
-  find "$RUN_ROOT" "$ROOT/aux" -type f -name '._*' -delete 2>/dev/null || true
+  find "$RUN_ROOT" -type f -name '._*' -delete 2>/dev/null || true
 }
 run_stage() {
   local stage="$1"
@@ -22,11 +20,7 @@ run_stage() {
   "$@"
 }
 trap cleanup_metadata EXIT
-mkdir -p "$ROOT/aux/pycache" "$ROOT/aux/matplotlib" "$ROOT/aux/cache"
-export PYTHONPYCACHEPREFIX="$ROOT/aux/pycache"
-export MPLCONFIGDIR="$ROOT/aux/matplotlib"
-export XDG_CACHE_HOME="$ROOT/aux/cache"
-export MPLBACKEND="Agg"
+gpah_setup_cache
 
 run_stage phase_observation env PYTHON_BIN="$PYTHON_BIN" bash scripts/run_phase_observation_robustness.sh \
   "$RUN_ROOT/phase_observation"

@@ -1,0 +1,27 @@
+{
+  "experiment": "hidden_phase_filter_validation",
+  "decision_information": "per-queue arrival counts and queueing state; true phase excluded from Bayesian-filter forecasts",
+  "true_phase_use": "evaluation-only identification diagnostics; never policy input",
+  "calibration_isolation": "estimated parameters use an independent arrival-only trace and disjoint seed range",
+  "paired_exogenous_streams": "arrival and phase RNG streams are identical across inference regimes and independent of policy-dependent service draws",
+  "case_ids": [
+    "low_contrast",
+    "fast_mixing",
+    "high_burst",
+    "predictive_burst",
+    "multi_state_burst",
+    "alternating_hotspots"
+  ],
+  "regimes": [
+    "oracle",
+    "bayes_known",
+    "bayes_estimated",
+    "stationary"
+  ],
+  "replications": 30,
+  "warmup_steps": 500,
+  "eval_steps": 3000,
+  "calibration_steps": 10000,
+  "em_iterations": 20,
+  "seed": 34260527
+}

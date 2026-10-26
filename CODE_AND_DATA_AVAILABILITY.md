@@ -1,23 +1,28 @@
 # Code and data availability
 
-## Manuscript-ready statement for anonymous review
+The supplementary computational reproducibility package is provided in this
+repository. It includes the simulation and policy implementations, frozen
+experiment configurations, random-seed rules, RL hyperparameters, raw
+replication-level results, training histories, summary tables, plotting code,
+and the final manuscript figure assets.
 
-An anonymized computational reproducibility repository accompanies this
-submission at `[ANONYMOUS_REPOSITORY_URL]`. It contains the complete simulation
-and policy implementations, frozen experiment configurations, random-seed
-rules, trained-RL hyperparameters, raw replication-level results, learning
-curves, summary tables, and figure-generation scripts. The repository also
-provides smoke-test and full-reproduction commands together with a pinned
-software environment and SHA-256 checksums.
+The release includes the completed held-out-topology transfer diagnostic and
+all five revision studies: controlled phase observation, hidden-phase filtering,
+uncapped high-load behavior, policy-action runtime, and validation-selected RL
+hyperparameters and convergence. Dataset locations and supported commands are
+listed in the [README](README.md).
 
-## Post-acceptance statement
+Download and extract the complete repository archive to use it as the
+supplementary package. Record the Git commit identifier alongside the download
+for version identification. SHA-256 file checksums are supplied in
+[CHECKSUMS.sha256](CHECKSUMS.sha256); run
+`bash scripts/reproduce.sh verify` to check them and required package contents.
+No persistent archive DOI is asserted by this repository.
 
-The code and data supporting this study are available at
-`[PUBLIC_REPOSITORY_OR_ARCHIVE_URL]`, including a versioned release and
-persistent DOI. The archive contains the simulation and policy implementations,
-frozen configurations, random seeds, raw replication-level outputs, trained-RL
-learning histories, summary tables, and figure-generation scripts.
-
-Before publication, replace both placeholders and add the repository release
-tag or archive DOI.
-
+The [pinned environment](environment.yml),
+[parameter tables](docs/REPRODUCIBILITY_PARAMETERS.md),
+[seed documentation](configs/seeds.md), and
+[revision protocols](docs/REVISION_EXPERIMENTS.md) describe how to use the data
+and rerun the experiments. Verification, deterministic reanalysis, figure
+regeneration, small-budget smoke checks, and full experimental reruns are
+separate operations. Generated outputs do not replace the frozen evidence.

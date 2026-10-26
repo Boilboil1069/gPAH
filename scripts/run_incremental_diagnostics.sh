@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(dirname "${BASH_SOURCE[0]}")/_common.sh"
+RUN_ROOT="$(gpah_output_dir "${1:-results/generated/diagnostics}")"
+gpah_setup_cache
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$ROOT"
-
-python experiment/run_gpah_paper1_all_experiments.py \
-  --output_dir results/generated/diagnostics \
+"$PYTHON_BIN" experiment/run_gpah_paper1_all_experiments.py \
+  --output_dir "$RUN_ROOT" \
   --no_timestamped_output \
   --skip_policy \
   --skip_rl \
@@ -20,7 +20,7 @@ python experiment/run_gpah_paper1_all_experiments.py \
   --rl_warmup_steps 500 \
   --rl_eval_steps 3000 \
   --rl_rollout_steps 256 \
-  --rl_device cpu \
+  --rl_device "${RL_DEVICE:-cpu}" \
   --buffer_robustness_replications 20 \
   --buffer_robustness_warmup_steps 1000 \
   --buffer_robustness_base_eval_steps 3000 \

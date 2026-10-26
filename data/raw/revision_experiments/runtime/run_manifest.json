@@ -1,0 +1,42 @@
+{
+  "experiment": "runtime_benchmark",
+  "clock": "time.perf_counter_ns",
+  "timed_region": "policy.action only; simulator step timed separately",
+  "garbage_collection_during_timing": "disabled",
+  "timer_overhead_median_ns": 41.0,
+  "python": "3.13.0 | packaged by Anaconda, Inc. | (main, Oct  7 2024, 16:25:56) [Clang 14.0.6 ]",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "processor": "arm",
+  "sizes": [
+    {
+      "d": 20,
+      "K": 10
+    },
+    {
+      "d": 50,
+      "K": 20
+    },
+    {
+      "d": 100,
+      "K": 40
+    }
+  ],
+  "policies": [
+    "maxweight_mu",
+    "affinity",
+    "qah_switch",
+    "gpah_meanmap",
+    "gpah"
+  ],
+  "replications": 20,
+  "warmup_decisions": 200,
+  "measured_decisions": 2000,
+  "seed": 32260527,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  }
+}

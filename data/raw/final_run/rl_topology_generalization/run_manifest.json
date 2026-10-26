@@ -1,5 +1,5 @@
 {
-  "output_dir": "/Volumes/extend/drl-queue/2/gpah_papers/paper1_gpah_advantage/new_experiments/paper1_unified/run_20260602_101615/rl_topology_generalization",
+  "output_dir": "data/raw/final_run/rl_topology_generalization",
   "algorithms": [
     "dqn",
     "ppo",

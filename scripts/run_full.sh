@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(dirname "${BASH_SOURCE[0]}")/_common.sh"
+RUN_ROOT="$(gpah_output_dir "${1:-results/generated/full}")"
+gpah_setup_cache
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$ROOT"
-
-python experiment/run_gpah_paper1_all_experiments.py \
-  --output_dir results/generated/full \
+"$PYTHON_BIN" experiment/run_gpah_paper1_all_experiments.py \
+  --output_dir "$RUN_ROOT" \
   --no_timestamped_output \
   --policy_families A1_topology,A2_map_burst,A3_density,A4_service,A5_switch,A6_scale,A7_load,A8_large_scale \
   --policy_replications 50 \
@@ -26,10 +26,16 @@ python experiment/run_gpah_paper1_all_experiments.py \
   --rl_warmup_steps 500 \
   --rl_eval_steps 3000 \
   --rl_rollout_steps 256 \
-  --rl_device cpu \
+  --rl_device "${RL_DEVICE:-cpu}" \
   --rl_jobs 2 \
   --rl_seed_offset 0 \
-  --rl_reuse_fixed_policy_dir results/generated/full/policy \
+  --rl_reuse_fixed_policy_dir "$RUN_ROOT/policy" \
+  --run_rl_topology_generalization \
+  --rl_generalization_algorithms dqn,ppo,sac \
+  --rl_generalization_budget_preset full \
+  --rl_generalization_train_steps 250000 \
+  --rl_generalization_train_seeds 10 \
+  --rl_generalization_replications 10 \
   --run_buffer_robustness \
   --buffer_robustness_replications 20 \
   --buffer_robustness_warmup_steps 1000 \
@@ -39,8 +45,8 @@ python experiment/run_gpah_paper1_all_experiments.py \
   --buffer_robustness_large_cap 10000 \
   --seed 20260527
 
-python experiment/map_gpah_paper1_ablation.py \
-  --output_dir results/generated/full/ablation_r50_conditional \
+"$PYTHON_BIN" experiment/map_gpah_paper1_ablation.py \
+  --output_dir "$RUN_ROOT/ablation_r50_conditional" \
   --no_timestamped_output \
   --families B1_phase,B2_service,B3_scarcity,B4_switch,B5_mixed \
   --policies gpah_full,no_phase,no_service,no_scarcity,no_switch,no_queue,mean_map \

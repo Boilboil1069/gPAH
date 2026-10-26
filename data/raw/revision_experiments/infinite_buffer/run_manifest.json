@@ -1,0 +1,22 @@
+{
+  "experiment": "infinite_buffer_high_load",
+  "interpretation": "long-horizon uncapped drift diagnostic; not a stability proof",
+  "loads": [
+    0.9,
+    0.95
+  ],
+  "policies": [
+    "equal_split",
+    "backpressure",
+    "maxweight_mu",
+    "affinity",
+    "qah_switch",
+    "gpah_meanmap",
+    "gpah"
+  ],
+  "replications": 20,
+  "warmup_steps": 1000,
+  "eval_steps": 100000,
+  "block_steps": 1000,
+  "seed": 31260527
+}

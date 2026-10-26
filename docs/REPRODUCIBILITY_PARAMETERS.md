@@ -60,7 +60,7 @@ compute short-horizon forecast pressure.
 | Main replications | 50 independent replications per non-RL policy and instance. |
 | RL evaluation replications | 10 independent evaluation replications per trained RL agent; 10 independent replications per structural comparison policy and instance in the RL comparison. |
 | RL training budget | 250000 environment steps per algorithm, instance, and training seed; 10 training seeds per algorithm and instance. |
-| Main policies | Equal-Split, BackPressure, MaxWeight-$\mu$, $c\mu$, GB-PANDAS-style, RL-Queueing-Surrogate, QAH+Switch, gPAH-StationaryMean, and gPAH. |
+| Main policies | Equal-Split, BackPressure, MaxWeight-$\mu$, $c\mu$, GB-PANDAS-style, Queueing-Surrogate, QAH+Switch, gPAH-StationaryMean, and gPAH. |
 | gPAH main default | $(\alpha_Q,\alpha_A,\alpha_\mu,\alpha_S,\alpha_C,\alpha_L)=(1.00,1.60,1.00,0.55,0.90,0.35)$, $H=6$, load-balance coefficient $0.25$; fixed across A1-A8. |
 | Conditional-ablation reference | `gpah_full` uses a separately frozen mechanism-identification configuration $(1.00,1.50,1.25,0.25,1.25,0.80)$; it is not used for the main comparison or sensitivity baseline. |
 | RL policies | DQN-Candidate, PPO-Factorized, and Discrete-SAC-Factorized. |
